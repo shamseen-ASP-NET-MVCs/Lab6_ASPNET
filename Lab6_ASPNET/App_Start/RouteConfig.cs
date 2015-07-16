@@ -18,6 +18,11 @@ namespace Lab6_ASPNET
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "Welcome",
+                url: "{controller}/{action}/{name}/{id}"
+                );
         }
     }
 }
