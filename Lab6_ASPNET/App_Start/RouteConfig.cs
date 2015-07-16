@@ -13,13 +13,13 @@ namespace Lab6_ASPNET
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapRoute(
+            routes.MapRoute(  //have to pass in everything as Action?parameter1&parameter2 ...
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
 
-            routes.MapRoute(
+            routes.MapRoute(  //now we can access welcome as HelloWorld/Welcome/Shamseen/1
                 name: "Welcome",
                 url: "{controller}/{action}/{name}/{id}"
                 );
