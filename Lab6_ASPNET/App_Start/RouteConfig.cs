@@ -21,7 +21,7 @@ namespace Lab6_ASPNET
 
             routes.MapRoute(  //now we can access welcome as HelloWorld/Welcome/Shamseen/1
                 name: "Welcome",
-                url: "{controller}/{action}/{name}/{id}"
+                url: "{controller}/{action}/{name}/{numtimes}"
                 );
         }
     }
