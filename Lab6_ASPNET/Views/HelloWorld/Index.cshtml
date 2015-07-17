@@ -1,11 +1,14 @@
-﻿@{
+﻿@*@{
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
+}*@
+
+@*commenting this out because it's unnecessary. the _ViewStart.cshtml is saying all cshtml files  already use _Layout,
+    so you really only use this line in a specific view when you want it to do something differently.*@
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Movie List";
 }
 
-<h2>Index</h2>
+<h2>Heading: My Movie List</h2>
 
-<p>Welcome to the Index template!!</p>
+<p>Welcome to the Index View template!!</p>
