@@ -15,10 +15,27 @@ namespace Lab6_ASPNET.Controllers
         private MovieDBContext db = new MovieDBContext();
 
         // GET: Movies
-        public ActionResult Index()
+        //version of Index that utilizes a search function
+        public ActionResult Index(string searchString)
         {
-            return View(db.Movies.ToList());
+            //using LINQ, selecting all items in db and storing into some collection movies
+            var movies = from movie in db.Movies
+                        select movie;
+
+            //using LINQ, only the movies that have the searched word in the title.
+            if (!String.IsNullOrEmpty(searchString))
+                movies = movies.Where(m => m.Title.Contains(searchString)); 
+                //only modifying selection if user typed something into search bar.
+
+            //passing collection of movies (altered or unaltered) into view
+            return View(movies); 
         }
+
+        //original version Index
+        //public ActionResult Index()
+        //{
+        //    return View(db.Movies.ToList());
+        //}
 
         // GET: Movies/Details/5
         public ActionResult Details(int? id)
