@@ -13,13 +13,28 @@ namespace Lab6_ASPNET.Controllers
     public class MoviesController : Controller
     {
         private MovieDBContext db = new MovieDBContext();
-
-        // GET: Movies
-        //version of Index that utilizes a search function
-        /*public ActionResult Index(string searchString) */ //only takes URL query strings
-        public ActionResult Index (string param1)
+        //These versions of Index can search through database
+        //GET: Movies/Index then use search bar
+        public ActionResult Index(string searchString)
         {
-            //want to pass in parameters via URL, query strings
+            //using LINQ, selecting all items in db and storing into some collection movies
+            var movies = from movie in db.Movies
+                         select movie;
+
+            //using LINQ, only the movies that have the searched word in the title.
+            if (!String.IsNullOrEmpty(searchString))
+                movies = movies.Where(m => m.Title.Contains(searchString));
+                //only modifying selection if user typed something into search bar.
+
+            //passing collection of movies (altered or unaltered) into view
+            return View(movies);
+        } 
+
+        /*
+        //GET: Movies/Index/someWord    OR     Movies/Index?param1=someWord
+        public ActionResult Index (string param1) //takes query string
+        {
+            //want to pass in parameters via URL, not just query strings
             //since route is set to put first parameter into param1, setting user's search to param1
             string searchString = param1;
 
@@ -34,13 +49,14 @@ namespace Lab6_ASPNET.Controllers
 
             //passing collection of movies (altered or unaltered) into view
             return View(movies); 
-        }
+        } */
 
-        //original version Index
-        //public ActionResult Index()
-        //{
-        //    return View(db.Movies.ToList());
-        //}
+        /*   
+        //original version Index (no search) ==> /Movies
+        public ActionResult Index()
+        {
+            return View(db.Movies.ToList());
+        } */
 
         // GET: Movies/Details/5
         public ActionResult Details(int? id)

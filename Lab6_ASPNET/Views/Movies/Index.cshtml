@@ -8,7 +8,15 @@
 
 <p>
     @Html.ActionLink("Create New", "Create")
-</p>
+
+    @using (Html.BeginForm())
+    {
+        <p>Search Title: @Html.TextBox("SEARCHSTRING") <br/> <br/> 
+                @*making a textbox, naming the val entered the same as the method parameter for mapping*@
+        <input type="submit" value = "Filter" /></p>  @*making a button with the word Filter on it*@
+
+    }
+
 <table class="table">
     <tr>
         <th>
@@ -26,7 +34,8 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model)
+{
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Title)
@@ -41,9 +50,9 @@
             @Html.DisplayFor(modelItem => item.Price)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
         </td>
     </tr>
 }
