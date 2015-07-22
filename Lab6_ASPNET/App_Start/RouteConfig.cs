@@ -15,8 +15,8 @@ namespace Lab6_ASPNET
 
             routes.MapRoute(  //have to pass in everything as Action?parameter1&parameter2 ...
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                url: "{controller}/{action}/{param1}",
+                defaults: new { controller = "Home", action = "Index", param1 = UrlParameter.Optional }
             );
 
             routes.MapRoute(  //now we can access welcome as HelloWorld/Welcome/Shamseen/1

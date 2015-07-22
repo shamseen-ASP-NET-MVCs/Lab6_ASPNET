@@ -16,8 +16,13 @@ namespace Lab6_ASPNET.Controllers
 
         // GET: Movies
         //version of Index that utilizes a search function
-        public ActionResult Index(string searchString)
+        /*public ActionResult Index(string searchString) */ //only takes URL query strings
+        public ActionResult Index (string param1)
         {
+            //want to pass in parameters via URL, query strings
+            //since route is set to put first parameter into param1, setting user's search to param1
+            string searchString = param1;
+
             //using LINQ, selecting all items in db and storing into some collection movies
             var movies = from movie in db.Movies
                         select movie;
