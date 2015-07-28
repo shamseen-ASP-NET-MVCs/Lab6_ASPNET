@@ -28,7 +28,13 @@ namespace Lab6_ASPNET.Controllers
 
             //passing collection of movies (altered or unaltered) into view
             return View(movies);
-        } 
+        }
+
+        [HttpPost]
+        public string Index(FormCollection fc, string searchString)
+        {
+            return "<h3> From [HttpPost]Index: " + searchString + "</h3>";
+        }
 
         /*
         //GET: Movies/Index/someWord    OR     Movies/Index?param1=someWord
