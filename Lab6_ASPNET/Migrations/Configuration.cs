@@ -50,6 +50,15 @@ namespace Lab6_ASPNET.Migrations
                    Genre = "Western",
                    Rating = "PG",
                    Price = 3.99M
+               },
+
+               new Movie
+               {
+                   Title = "Interstellar",
+                   ReleaseDate = DateTime.Parse("2014-11-14"),
+                   Genre = "Really freaking cool",
+                   Rating = "G for Generally Astounding",
+                   Price = 100.23M
                }
            );
         }
