@@ -15,8 +15,19 @@ namespace Lab6_ASPNET.Controllers
         private MovieDBContext db = new MovieDBContext();
         //These versions of Index can search through database
         //GET: Movies/Index then use search bar
-        public ActionResult Index(string searchString)
+        public ActionResult Index(string movieGenre, string searchString)
         {
+            //genre search
+            var genreList = new List<string>();
+
+            //selecting all genres in db then adding unique genres to list
+            var genreQry = from m in db.Movies
+                           orderby m.Genre
+                           select m.Genre;
+
+            genreList.AddRange(genreQry.Distinct());
+            ViewBag.genre = new SelectList(genreList);
+
             //using LINQ, selecting all items in db and storing into some collection movies
             var movies = from movie in db.Movies
                          select movie;
@@ -24,46 +35,15 @@ namespace Lab6_ASPNET.Controllers
             //using LINQ, only the movies that have the searched word in the title.
             if (!String.IsNullOrEmpty(searchString))
                 movies = movies.Where(m => m.Title.Contains(searchString));
-                //only modifying selection if user typed something into search bar.
+            //only modifying selection if user typed something into search bar.
+
+            if (!String.IsNullOrEmpty(movieGenre))
+                movies = movies.Where(m => m.Genre == movieGenre);
 
             //passing collection of movies (altered or unaltered) into view
             return View(movies);
         }
-
-        [HttpPost]
-        public string Index(FormCollection fc, string searchString)
-        {
-            return "<h3> From [HttpPost]Index: " + searchString + "</h3>";
-        }
-
-        /*
-        //GET: Movies/Index/someWord    OR     Movies/Index?param1=someWord
-        public ActionResult Index (string param1) //takes query string
-        {
-            //want to pass in parameters via URL, not just query strings
-            //since route is set to put first parameter into param1, setting user's search to param1
-            string searchString = param1;
-
-            //using LINQ, selecting all items in db and storing into some collection movies
-            var movies = from movie in db.Movies
-                        select movie;
-
-            //using LINQ, only the movies that have the searched word in the title.
-            if (!String.IsNullOrEmpty(searchString))
-                movies = movies.Where(m => m.Title.Contains(searchString)); 
-                //only modifying selection if user typed something into search bar.
-
-            //passing collection of movies (altered or unaltered) into view
-            return View(movies); 
-        } */
-
-        /*   
-        //original version Index (no search) ==> /Movies
-        public ActionResult Index()
-        {
-            return View(db.Movies.ToList());
-        } */
-
+        
         // GET: Movies/Details/5
         public ActionResult Details(int? id)
         {
